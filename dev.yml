@@ -11,3 +11,5 @@
       dnf: name=tig state=latest
     - name: Install Ruby
       dnf: name=ruby state=latest
+    - name: Install Ruby Bundler gem
+      dnf: name=rubygem-bundler state=latest

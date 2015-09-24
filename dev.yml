@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+
+    - name: Debug
+      debug: msg="ansible_os_family={{ansible_os_family}} ansible_distribution_version={{ansible_distribution_version}}"
+      sudo: no
+
+    - name: Install tig
+      dnf: name=tig state=latest
+    - name: Install Ruby
+      dnf: name=ruby state=latest

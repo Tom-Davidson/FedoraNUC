@@ -19,4 +19,4 @@ Using the NUC as a Fedora workstaton.
  * `chmod 600 ~/.ssh/*`
  * `git clone git@github.com:Tom-Davidson/FedoraNUC.git ~/Documents/Provisioning`
  * `sudo yum install ansible`
- * `clear && ansible-playbook -i "localhost," -c local ~/Documents/Provisioning/dev.yml`
+ * `clear && ansible-playbook -i "localhost," -c local ~/Documents/Provisioning/dev.yml --ask-sudo-pass`

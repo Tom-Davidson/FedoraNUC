@@ -13,10 +13,11 @@ Using the NUC as a Fedora workstaton.
  * Remove the usb device and power on.
  * Start ssh server (as root): `systemctl start sshd.service`
  * Enable ssh server on boot (as root): `systemctl enable sshd.service`
- * add yourself as a sudoer: `echo "tom ALL=(root) ALL" > /etc/sudoers.d/tom`
+ * add yourself as a sudoer: `echo "XXXXXX ALL=(root) ALL" > /etc/sudoers.d/XXXXXX`
  * run `ifconfig` to get the ip address, The rest you can do remotely over ssh!
  * `copy ssh keys into ~/.ssh/`
  * `chmod 600 ~/.ssh/*`
+ * Git config `git config --global user.name "XXXXXXXX" && git config --global user.email "XXXX@XXXXXXXXX" && git config --global push.default simple`
  * `git clone git@github.com:Tom-Davidson/FedoraNUC.git ~/Documents/Provisioning`
  * `sudo yum install ansible`
  * `clear && ansible-playbook -i "localhost," -c local ~/Documents/Provisioning/dev.yml --ask-sudo-pass`

@@ -7,9 +7,37 @@
       debug: msg="ansible_os_family={{ansible_os_family}} ansible_distribution_version={{ansible_distribution_version}}"
       sudo: no
 
+# Dev Tools
     - name: Install tig
       dnf: name=tig state=latest
     - name: Install Ruby
       dnf: name=ruby state=latest
     - name: Install Ruby Bundler gem
       dnf: name=rubygem-bundler state=latest
+
+# Sabma
+    - name: Install samba
+      dnf: name=samba state=latest
+    - name: Install samba-client
+      dnf: name=samba-client state=latest
+    - name: create a directory to share
+      file: path=/opt/samba/ mode=0755 state=directory
+    - name: add a share
+      lineinfile: dest=/etc/samba/smb.conf regexp='' insertafter=EOF line='[samba]\n\tpath = /opt/samba/\n\tread only = no\n\tbrowseable = yes\n'
+    - name: set selinux boolean
+      command: /usr/sbin/setsebool -P allow_smbd_anon_write=1
+    - name: allow full access (r/w)
+      command: /usr/sbin/setsebool -P samba_export_all_rw on
+    - name: set selinux context
+      command: /usr/bin/chcon -t samba_share_t /opt/samba/
+    - name: start samba
+      service: name=smb state=running enabled=yes
+    - name: start named
+      service: name=nmb state=running enabled=yes
+    - name: configure firewall, allow samba traffic
+      firewalld: service=samba permanent=true state=enabled
+# @TODO: make the services start rather then just start on boot
+
+    - name: Manual steps
+      debug: msg="Add your local user to samba: `sudo smbpasswd -a {{yourUserName}}`"
+      sudo: no

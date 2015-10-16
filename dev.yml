@@ -41,6 +41,20 @@
       firewalld: service=samba permanent=true state=enabled
 # @TODO: make the services start rather then just start on boot
 
+# Optional Bits
+#   InfluxDB (https://influxdb.com/docs/v0.9/introduction/getting_started.html)
+    - name: InfluxDB download
+      get_url: url=http://influxdb.s3.amazonaws.com/influxdb-0.9.4.2-1.x86_64.rpm dest=/tmp/influxdb-0.9.4.2-1.x86_64.rpm mode=0660
+    - name: InfluxDB install
+      dnf: name=/tmp/influxdb-0.9.4.2-1.x86_64.rpm state=present
+    - name: InfluxDB start
+      service: name=influxdb state=running enabled=yes
+    - name: InfluxDB firewall 8083
+      firewalld: port=8083/tcp permanent=true state=enabled
+    - name: InfluxDB firewall 8086
+      firewalld: port=8086/tcp permanent=true state=enabled
+# @TODO: add Grafana to Influx
+
     - name: Manual steps
       debug: msg="Add your local user to samba by `sudo smbpasswd -a {yourUserName}`"
       sudo: no

@@ -11,15 +11,18 @@
     - name: Install tig
       dnf: name=tig state=latest
     - name: Install Ruby
-      dnf: name=ruby state=latest
-    - name: Install Ruby Bundler gem
-      dnf: name=rubygem-bundler state=latest
+      action: dnf name={{ item }} state=installed
+      with_items:
+        - rubypick
+        - ruby
+        - rubygem-bundler
 
 # Sabma
-    - name: Install samba
-      dnf: name=samba state=latest
-    - name: Install samba-client
-      dnf: name=samba-client state=latest
+    - name: Install Samba
+      action: dnf name={{ item }} state=installed
+      with_items:
+        - samba
+        - samba-client
     - name: create a directory to share
       file: path=/opt/samba/ mode=0755 state=directory
     - name: add a share
@@ -39,5 +42,5 @@
 # @TODO: make the services start rather then just start on boot
 
     - name: Manual steps
-      debug: msg="Add your local user to samba: `sudo smbpasswd -a {{yourUserName}}`"
+      debug: msg="Add your local user to samba by `sudo smbpasswd -a {yourUserName}`"
       sudo: no

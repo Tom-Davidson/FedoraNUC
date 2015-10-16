@@ -2,11 +2,11 @@
 Using the NUC as a Fedora workstaton.
 
 ## Preparing the NUC
- * Download Fedora 22 from https://download.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/iso/Fedora-Live-Workstation-x86_64-22-3.iso
- * Download the Live USB Creator from https://fedorahosted.org/liveusb-creator/
+ * Download [Fedora 22](https://download.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/iso/Fedora-Live-Workstation-x86_64-22-3.iso)
+ * Download the [Live USB Creator](https://fedorahosted.org/liveusb-creator/)
  * Find a USB drive
  * Use the Live USB Creator to install a bootable image to the USB drive
- * Copy wy0035.bio onto the USB drive
+ * Copy the [updated bios](wy0035.bio) onto the USB drive
  * F7 to enter BIOS update, select BIOS file from USB
  * Boot and it finds the USB drive, boot to fedora live
  * Install to hard drive and use the wizard to set it up

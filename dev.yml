@@ -53,7 +53,10 @@
       firewalld: port=8083/tcp permanent=true state=enabled
     - name: InfluxDB firewall 8086
       firewalld: port=8086/tcp permanent=true state=enabled
-# @TODO: add Grafana to Influx
+    - name: InfluxDB admin interface
+      debug: msg="http://{{ansible_default_ipv4.address}}:8083/"
+      sudo: no
+# @TODO: add Grafana to Influx (http://docs.grafana.org/installation/rpm/)
 
     - name: Manual steps
       debug: msg="Add your local user to samba by `sudo smbpasswd -a {yourUserName}`"

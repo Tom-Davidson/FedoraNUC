@@ -56,7 +56,34 @@
     - name: InfluxDB admin interface
       debug: msg="http://{{ansible_default_ipv4.address}}:8083/"
       sudo: no
-# @TODO: add Grafana to Influx (http://docs.grafana.org/installation/rpm/)
+#	Grafana
+    - name: Grafana download
+      get_url: url=https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x86_64.rpm dest=/tmp/grafana-2.1.3-1.x86_64.rpm mode=0660
+    - name: Grafana install
+      dnf: name=/tmp/grafana-2.1.3-1.x86_64.rpm state=present
+    - name: Grafana start
+      service: name=grafana-server state=running enabled=yes
+    - name: Grafana firewall 3000
+      firewalld: port=3000/tcp permanent=true state=enabled
+    - name: Grafana interface
+      debug: msg="http://{{ansible_default_ipv4.address}}:3000/ default username=admin, default password=admin"
+      sudo: no
+#	Grafana & InfluxDB
+    - name: Create grafana database
+      shell: curl -G 'http://localhost:8086/query' --data-urlencode "q=CREATE DATABASE grafana"
+      sudo: no
+    - name: Create grafana user
+      shell: curl -G 'http://localhost:8086/query' --data-urlencode "q=CREATE USER grafana WITH PASSWORD 'grafana'"
+      sudo: no
+    - name: Create grafana user rights
+      shell: curl -G 'http://localhost:8086/query' --data-urlencode "q=GRANT ALL ON grafana TO grafana"
+      sudo: no
+    - name: Create grafana test data
+      shell: curl -i -XPOST 'http://localhost:8086/write?db=grafana' --data-binary @testdata/influxdb.txt
+      sudo: no
+    - name: Grafana configuration
+      debug: msg="Add influxDB as described here: http://docs.grafana.org/datasources/influxdb/ with the database name as grafana, user as grafana and password as grafana."
+      sudo: no
 
     - name: Manual steps
       debug: msg="Add your local user to samba by `sudo smbpasswd -a {yourUserName}`"

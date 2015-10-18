@@ -68,7 +68,7 @@
     - name: Grafana interface
       debug: msg="http://{{ansible_default_ipv4.address}}:3000/ default username=admin, default password=admin"
       sudo: no
-#	Grafana & InfluxDB
+#	Grafana & InfluxDB (http://docs.grafana.org/datasources/influxdb/)
     - name: Create grafana database
       shell: curl -G 'http://localhost:8086/query' --data-urlencode "q=CREATE DATABASE grafana"
       sudo: no
@@ -82,7 +82,7 @@
       shell: curl -i -XPOST 'http://localhost:8086/write?db=grafana' --data-binary @testdata/influxdb.txt
       sudo: no
     - name: Grafana configuration
-      debug: msg="Add influxDB as described here: http://docs.grafana.org/datasources/influxdb/ with the database name as grafana, user as grafana and password as grafana."
+      debug: msg="Add influxDB as described here at http://docs.grafana.org/datasources/influxdb/ with the database name as grafana, user as grafana and password as grafana."
       sudo: no
 
     - name: Manual steps

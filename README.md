@@ -1,14 +1,13 @@
 # FedoraNUC
-Using the NUC as a Fedora workstaton.
+Using the NUC as a Fedora workstaton. Tested on the D54250WYK.
 
 ## Preparing the NUC
- * Download [Fedora 22](https://download.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/iso/Fedora-Live-Workstation-x86_64-22-3.iso)
- * Download the [Live USB Creator](https://fedorahosted.org/liveusb-creator/)
+ * Download [Fedora 25 Media Writer for OSX](https://getfedora.org/fmw/FedoraMediaWriter-osx-4.0.7.dmg)
  * Find a USB drive
- * Use the Live USB Creator to install a bootable image to the USB drive
- * Copy the [updated bios](wy0035.bio) onto the USB drive
+ * Use the Fedora 25 Media Writer for OSX to install a bootable image to the USB drive
+ * Copy the [updated bios](https://downloadcenter.intel.com/download/26450/BIOS-Update-WYLPT10H-86A-?product=76977) onto the USB drive
  * F7 to enter BIOS update, select BIOS file from USB
- * Boot and it finds the USB drive, boot to fedora live
+ * F10 to enter the boot menu select the USB drive, boot to fedora live
  * Install to hard drive and use the wizard to set it up
  * Remove the usb device and power on.
  * Start ssh server (as root): `systemctl start sshd.service`

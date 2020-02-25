@@ -6,6 +6,6 @@
 
 - `dnf install -y nfs-utils`
 - `firewall-cmd --permanent --add-service mountd && firewall-cmd --permanent --add-service rpc-bind && firewall-cmd --add-service=nfs --permanent && firewall-cmd --reload`
-- `echo "/home 192.168.0.0/16(rw,no_root_squash,insecure)" >> /etc/exports`
+- `echo "/home/tv 192.168.0.0/16(rw,no_root_squash,insecure,all_squash,anonuid=1000,anongid=1000)" >> /etc/exports`
 - `sudo systemctl enable nfs && sudo systemctl restart nfs`
 - `exportfs -r`
